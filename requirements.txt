@@ -1,2 +1,4 @@
 django==4.1.8
 django-unicorn==0.50.0
+
+markdown==3.4.3
