@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }} - {{ block.super }}{% endblock %}
+
+{% block content %}
+    <div class="" style="padding-top: 100px;">
+        <form action="{% url 'posts:create' %}" method="post" style="width: 800px;">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="flex flex-col mb-6">
+                    <label for="{{ field.name }}" class="text-white text-lg mb-2">{{ field.label }}</label>
+                    {{ field }}
+                </div>
+            {% endfor %}
+
+            <div class="mb-8">
+                <button type="submit" class="py-2 px-4 rounded-lg text-white bg-sky-600 hover:bg-sky-800">Publish article</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

@@ -6,7 +6,8 @@ from django.http import HttpRequest
 from django.http import HttpResponse
 from django.views import View
 from django.views.generic.edit import FormMixin
-from django.views.generic import TemplateView
+from django.views.generic.list import ListView
+from django.db.models import QuerySet
 from django.forms import Form
 from django.forms import ModelForm
 from django.contrib.auth import authenticate
@@ -21,9 +22,18 @@ from core.forms import LoginForm
 from core.forms import SignUpForm
 
 
-class IndexView(TemplateView):
+class IndexView(ListView):
     
     template_name = 'core/index.html'
+    
+    def get_queryset(self) -> QuerySet:
+        return Post.objects.order_by('created').all()
+    
+    def get_context_data(self, **kwargs: Dict[str, Any]) -> Dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context['posts'] = self.get_queryset()
+        
+        return context
 
 
 class LoginView(FormMixin, View):

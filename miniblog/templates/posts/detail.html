@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}{{ post.title }} - {{ block.super }}{% endblock %}
+{% load markdown_extras %}
+
+{% block content %}
+    <div class="" style="padding-top: 150px;">
+        <h1 class="text-white text-4xl mb-20">{{ post.title }}</h1>
+        <section class="text-white">{{ post.body | markdown | safe }}</section>
+    </div>
+{% endblock %}

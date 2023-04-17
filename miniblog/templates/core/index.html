@@ -1,1 +1,16 @@
 {% extends 'base.html' %}
+
+{% block content %}
+    {% if not posts %}
+        <div class="flex justify-center items-center" style="height: 100vh;">
+            <h2 class="text-white text-3xl">📃🧐 Not posts yet</h2>
+        </div>
+    {% else %}
+        <div class="" style="padding-top: 100px;">
+            {% for post in posts %}
+                <a class="text-white text-2xl" href="{% url 'posts:detail' slug=post.slug %}">{{ post.title }}</a>
+                <span class="text-white">{{ post.slug }}</span>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}
