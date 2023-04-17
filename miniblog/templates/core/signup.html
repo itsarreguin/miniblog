@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }} - {{ block.super }}{% endblock %}
+
+{% block content %}
+    <div class="flex items-center justify-center" style="height: 100vh;">
+        <form action="" method="post" style="width: 420px;">
+            {% csrf_token %}
+            <section class="grid grid-cols-2 gap-5 mb-5">
+                <div class="flex flex-col">
+                    <label for="{{ form.first_name.name }}" class="text-white mb-2">{{ form.first_name.label }}</label>
+                    {{ form.first_name }}
+                </div>
+                <div class="flex flex-col">
+                    <label for="{{ form.last_name.name }}" class="text-white mb-2">{{ form.last_name.label }}</label>
+                    {{ form.last_name }}
+                </div>
+            </section>
+            <section class="flex flex-col mb-5">
+                <label for="{{ form.username.name }}" class="text-white mb-2">{{ form.username.label }}</label>
+                {{ form.username }}
+            </section>
+            <section class="flex flex-col mb-5">
+                <label for="{{ form.email.name }}" class="text-white mb-2">{{ form.email.label }}</label>
+                {{ form.email }}
+            </section>
+            <section class="flex flex-col mb-6">
+                <label for="{{ form.password.name }}" class="text-white mb-2">{{ form.password.label }}</label>
+                {{ form.password }}
+            </section>
+            <button type="submit" class="w-full py-2 px-4 rounded-lg text-white bg-sky-600 hover:bg-sky-800">Create account</button>
+        </form>
+    </div>
+{% endblock %}

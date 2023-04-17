@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }} - {{ block.super }}{% endblock %}
+
+{% block content %}
+    <div class="flex items-center justify-center" style="height: 100vh;">
+        <form action="{% url 'core:login' %}" method="post" style="width: 380px;">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="flex flex-col mb-4">
+                    <label for="{{ field.name }}" class="text-white mb-2">{{ field.label }}</label>
+                    {{ field }}
+                </div>
+            {% endfor %}
+            <button type="submit" class="w-full py-2 px-4 rounded-lg text-white bg-sky-600 hover:bg-sky-800">Login</button>
+        </form>
+    </div>
+{% endblock %}
