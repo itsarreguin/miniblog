@@ -20,9 +20,8 @@
         {% else %}
             {% for comment in comments %}
                 <div class="flex items-start mb-5">
-                    <section class="bg-gray-600 w-8 h-8 rounded-full text-sm text-white flex items-center justify-center mr-8">
-                        {{ comment.author.first_name | slice:':1' }}
-                        {{ comment.author.last_name | slice:':1' }}
+                    <section class="bg-gray-600 w-8 h-8 rounded-full text-sm text-white flex items-center justify-center mr-5">
+                        {{ comment.author.first_name | slice:':1' }}{{ comment.author.last_name | slice:':1' }}
                     </section>
                     <section>
                         <p class="text-white text-base">{{ comment.content }}</p>
