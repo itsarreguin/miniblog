@@ -33,7 +33,7 @@ class Post(models.Model):
         return self.comments.count()
     
     def save(self, *args: Tuple[Any], **kwargs: Dict[str, Any]) -> None:
-        if self.slug is None:
+        if not self.slug:
             self.slug = slugify(self.title)
         
         return super(Post, self).save(*args, **kwargs)

@@ -12,7 +12,7 @@
 </head>
 <body class="bg-gray-900">
     {% csrf_token %}
-    <nav class="bg-gray-900 fixed w-full" style="border-bottom: 1px solid #374151;">
+    <nav class="bg-gray-900 fixed w-full" style="z-index: 500; border-bottom: 1px solid #374151;">
         <div class="max-w-6xl flex flex-wrap items-center justify-between mx-auto py-4">
             <a href="{% url 'core:index' %}" class="flex items-center">
                 <img src="{% static 'miniblog-white.png' %}" class="h-7 mr-3" alt="miniblog Logo" />
