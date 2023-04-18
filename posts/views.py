@@ -1,6 +1,6 @@
 from typing import Any
 from typing import Dict
-from typing import Optional
+from typing import Tuple
 from typing import Type
 
 from django.http import HttpRequest
@@ -20,13 +20,12 @@ from django.utils.translation import gettext_lazy as _
 from posts.models import Post
 from posts.models import Comment
 from posts.models import Like
-from posts.forms import Post
 from posts.forms import PostCreateForm
 
 
 class PostCreateView(LoginRequiredMixin, FormMixin, View):
     
-    form_class  = PostCreateForm
+    form_class: Type[Form | ModelForm]  = PostCreateForm
     template_name: str = 'posts/create.html'
     template_title: str = _('New post')
     
@@ -57,4 +56,10 @@ class PostDetailView(DetailView):
     template_name: str = 'posts/detail.html'
     slug_field: str = 'slug'
     slug_url_kwarg: str = 'slug'
-    context_object_name = 'post'
+    
+    def get_context_data(self, **kwargs: Dict[str, Any]) -> Dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context['post'] = Post.objects.filter(slug=self.kwargs['slug']).first()
+        context['comments'] = Comment.objects.filter(post__slug=self.kwargs['slug']).all()
+        
+        return context

@@ -24,6 +24,14 @@ class Post(models.Model):
     def __str__(self) -> str:
         return '%s' % self.title
     
+    @property
+    def total_likes(self) -> int:
+        return self.likes.count()
+    
+    @property
+    def total_comments(self) -> int:
+        return self.comments.count()
+    
     def save(self, *args: Tuple[Any], **kwargs: Dict[str, Any]) -> None:
         if self.slug is None:
             self.slug = slugify(self.title)

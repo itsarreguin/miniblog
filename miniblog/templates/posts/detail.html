@@ -3,8 +3,38 @@
 {% load markdown_extras %}
 
 {% block content %}
-    <div class="" style="padding-top: 150px;">
-        <h1 class="text-white text-4xl mb-20">{{ post.title }}</h1>
-        <section class="text-white">{{ post.body | markdown | safe }}</section>
+    <div class="mb-20" style="padding-top: 150px;">
+        <section class="flex justify-between items-start mb-20">
+            <div class="flex flex-col max-w-5xl">
+                <h1 class="text-white text-4xl font-bold mb-18">{{ post.title }}</h1>
+                <span class="text-gray-300 mb-10">By: {{ post.author }}</span>
+                <section class="text-white">{{ post.body | markdown | safe }}</section>
+            </div>
+            <div class="sticky right-0" style="top: 120px;">
+                <ul>
+                    <li class="flex flex-col items-center mb-6">
+                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24">
+                            <path fill="#ffffff" d="M20.133 5.317c0.88 0.881 1.319 2.031 1.319 3.184s-0.44 2.303-1.319 3.182l-8.133 8.133-8.133-8.133c-0.879-0.879-1.318-2.029-1.318-3.183s0.439-2.304 1.318-3.183 2.029-1.318 3.183-1.318 2.304 0.439 3.183 1.318l1.060 1.060c0.391 0.391 1.024 0.391 1.414 0l1.062-1.062c0.879-0.879 2.029-1.318 3.182-1.317s2.303 0.44 3.182 1.319zM21.547 3.903c-1.269-1.269-2.934-1.904-4.596-1.905s-3.327 0.634-4.597 1.903l-0.354 0.355-0.353-0.353c-1.269-1.269-2.935-1.904-4.597-1.904s-3.328 0.635-4.597 1.904-1.904 2.935-1.904 4.597 0.635 3.328 1.904 4.597l8.84 8.84c0.391 0.391 1.024 0.391 1.414 0l8.84-8.84c1.269-1.269 1.904-2.934 1.905-4.596s-0.634-3.327-1.905-4.598z"></path>
+                        </svg>
+                        <span class="text-white text-lg">{{ post.total_likes }}</span>
+                    </li>
+                    <li class="flex flex-col items-center">
+                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24">
+                            <path fill="#ffffff" d="M22 15v-10c0-0.828-0.337-1.58-0.879-2.121s-1.293-0.879-2.121-0.879h-14c-0.828 0-1.58 0.337-2.121 0.879s-0.879 1.293-0.879 2.121v16c0 0.256 0.098 0.512 0.293 0.707 0.391 0.391 1.024 0.391 1.414 0l3.707-3.707h11.586c0.828 0 1.58-0.337 2.121-0.879s0.879-1.293 0.879-2.121zM20 15c0 0.276-0.111 0.525-0.293 0.707s-0.431 0.293-0.707 0.293h-12c-0.276 0-0.526 0.112-0.707 0.293l-2.293 2.293v-13.586c0-0.276 0.111-0.525 0.293-0.707s0.431-0.293 0.707-0.293h14c0.276 0 0.525 0.111 0.707 0.293s0.293 0.431 0.293 0.707z"></path>
+                        </svg>
+                        <span class="text-white text-lg">{{ post.total_comments }}</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+        <section class="flex">
+            <div class="">
+                {% if not comments %}
+                    <h2 class="text-white text-2xl">No comments yet</h2>
+                {% else %}
+                    <h2>Hello world</h2>
+                {% endif %}
+            </div>
+        </section>
     </div>
 {% endblock %}
