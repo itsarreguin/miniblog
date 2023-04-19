@@ -1,6 +1,5 @@
 from typing import Any
 from typing import Dict
-from typing import Tuple
 from typing import Type
 
 from django.http import HttpRequest
@@ -9,7 +8,6 @@ from django.views import View
 from django.views.generic import DetailView
 from django.views.generic.edit import FormMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import QuerySet
 from django.db.models import Model
 from django.forms import Form
 from django.forms import ModelForm
@@ -19,7 +17,6 @@ from django.utils.translation import gettext_lazy as _
 
 from posts.models import Post
 from posts.models import Comment
-from posts.models import Like
 from posts.forms import PostCreateForm
 
 
@@ -63,3 +60,22 @@ class PostDetailView(DetailView):
         context['comments'] = Comment.objects.filter(post__slug=self.kwargs['slug']).all()
         
         return context
+
+
+class PostDeleteView(LoginRequiredMixin, FormMixin, View):
+    
+    model: Type[Model] = Post
+    template_name: str = 'posts/confirm.html'
+    template_title: str = 'Delete post'
+    
+    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context['title'] = self.template_title
+        
+        return context
+    
+    def post(self, request: HttpRequest, **kwargs: Dict[str, Any]) -> HttpResponse:
+        article = self.model.objects.filter(slug=kwargs['slug']).first()
+        if article:
+            article.delete()
+            return redirect('core:index')

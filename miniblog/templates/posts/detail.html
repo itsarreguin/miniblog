@@ -5,10 +5,10 @@
 
 {% block content %}
     <div class="mb-20" style="padding-top: 150px;">
-        <section class="flex justify-between items-start mb-20">
+        <section class="flex justify-between items-start mb-10">
             <div class="flex flex-col max-w-4xl">
-                <h1 class="text-white text-4xl font-bold mb-18">{{ post.title }}</h1>
-                <span class="text-gray-300 mb-10">By: {{ post.author }}</span>
+                <h1 class="text-white text-4xl font-bold mb-4">{{ post.title }}</h1>
+                <span class="text-gray-300 mb-10">By: {{ post.author.get_full_name }} (@{{ post.author }})</span>
                 <section class="text-white">{{ post.body | markdown | safe }}</section>
             </div>
             <div class="sticky right-0" style="top: 120px;">
@@ -23,10 +23,18 @@
                 </ul>
             </div>
         </section>
+        {% if request.user.is_authenticated and post.author == request.user %}
+            <section class="flex mb-8">
+                <a class="py-2 px-5 bg-teal-600 hover:bg-teal-800 text-white rounded-lg mr-5" href="">Update</a>
+
+                <form action="{% url 'posts:delete' slug=post.slug %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="py-2 px-5 bg-red-600 hover:bg-red-800 text-white rounded-lg">Delete</button>
+                </form>
+            </section>
+        {% endif %}
         <section class="max-w-4xl">
-            <div class="">
-                {% unicorn 'comment' comments=comments post=post %}
-            </div>
+            {% unicorn 'comment' comments=comments post=post %}
         </section>
     </div>
 {% endblock %}
